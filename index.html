@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RupiahWatch — Analisis Kekuatan Rupiah vs Mata Uang Asia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-mark">₹W</span>
+        <div>
+          <div class="brand-name">RupiahWatch</div>
+          <div class="brand-sub">Analisis Kekuatan Rupiah vs Mata Uang Asia</div>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span class="live-badge">● LIVE</span>
+        <span id="last-updated" class="update-time">Memuat data...</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container">
+
+    <!-- KPI CARDS -->
+    <section class="kpi-grid" id="kpi-section">
+      <div class="kpi-card" id="kpi-usd">
+        <div class="kpi-flag">🇺🇸</div>
+        <div class="kpi-label">USD / IDR</div>
+        <div class="kpi-value" data-target="0">—</div>
+        <div class="kpi-change">memuat...</div>
+      </div>
+      <div class="kpi-card" id="kpi-jpy">
+        <div class="kpi-flag">🇯🇵</div>
+        <div class="kpi-label">JPY / IDR</div>
+        <div class="kpi-value" data-target="0">—</div>
+        <div class="kpi-change">memuat...</div>
+      </div>
+      <div class="kpi-card" id="kpi-sgd">
+        <div class="kpi-flag">🇸🇬</div>
+        <div class="kpi-label">SGD / IDR</div>
+        <div class="kpi-value" data-target="0">—</div>
+        <div class="kpi-change">memuat...</div>
+      </div>
+      <div class="kpi-card" id="kpi-myr">
+        <div class="kpi-flag">🇲🇾</div>
+        <div class="kpi-label">MYR / IDR</div>
+        <div class="kpi-value" data-target="0">—</div>
+        <div class="kpi-change">memuat...</div>
+      </div>
+      <div class="kpi-card" id="kpi-thb">
+        <div class="kpi-flag">🇹🇭</div>
+        <div class="kpi-label">THB / IDR</div>
+        <div class="kpi-value" data-target="0">—</div>
+        <div class="kpi-change">memuat...</div>
+      </div>
+      <div class="kpi-card" id="kpi-krw">
+        <div class="kpi-flag">🇰🇷</div>
+        <div class="kpi-label">KRW / IDR</div>
+        <div class="kpi-value" data-target="0">—</div>
+        <div class="kpi-change">memuat...</div>
+      </div>
+    </section>
+
+    <!-- CHART 1: LINE — Tren 30 Hari -->
+    <section class="chart-card wide" id="section-line">
+      <div class="chart-header">
+        <div>
+          <div class="chart-eyebrow">Chart 1 — Tren Historis</div>
+          <h2 class="chart-title" id="line-chart-title">Pergerakan Kurs Rupiah 30 Hari Terakhir</h2>
+          <p class="chart-desc">Pilih jangka waktu untuk melihat tren historis Rupiah hingga 1 tahun terakhir.</p>
+        </div>
+        <div class="timeframe-toggle" id="timeframe-toggle">
+          <button class="toggle-btn" data-range="7H">7H</button>
+          <button class="toggle-btn active" data-range="30H">30H</button>
+          <button class="toggle-btn" data-range="3B">3B</button>
+          <button class="toggle-btn" data-range="1T">1T</button>
+        </div>
+        <div class="currency-toggle" id="line-toggle">
+          <button class="toggle-btn active" data-currency="USD">USD</button>
+          <button class="toggle-btn" data-currency="JPY">JPY</button>
+          <button class="toggle-btn" data-currency="SGD">SGD</button>
+          <button class="toggle-btn" data-currency="MYR">MYR</button>
+          <button class="toggle-btn" data-currency="THB">THB</button>
+          <button class="toggle-btn" data-currency="KRW">KRW</button>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="lineChart"></canvas>
+      </div>
+    </section>
+
+    <!-- CHART 2 + 3 side by side -->
+    <div class="chart-row">
+
+      <!-- CHART 2: BAR — Perubahan % -->
+      <section class="chart-card" id="section-bar">
+        <div class="chart-header">
+          <div>
+            <div class="chart-eyebrow">Chart 2 — Volatilitas Mingguan</div>
+            <h2 class="chart-title">Perubahan % vs Rupiah</h2>
+            <p class="chart-desc">Hijau = mata uang menguat vs IDR minggu ini. Merah = melemah.</p>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="barChart"></canvas>
+        </div>
+      </section>
+
+      <!-- CHART 3: SCATTER — Volatilitas vs Rata-rata -->
+      <section class="chart-card" id="section-scatter">
+        <div class="chart-header">
+          <div>
+            <div class="chart-eyebrow">Chart 3 — Analisis Risiko</div>
+            <h2 class="chart-title">Volatilitas vs Rata-rata Nilai</h2>
+            <p class="chart-desc">Semakin kanan = makin tidak stabil. Semakin atas = nilai lebih tinggi vs IDR.</p>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="scatterChart"></canvas>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- INSIGHT BOX -->
+    <section class="insight-box" id="insight-box">
+      <div>
+        <div class="insight-title">Insight Otomatis</div>
+        <div class="insight-text" id="insight-text">Memuat analisis...</div>
+      </div>
+    </section>
+
+    <!-- DATA SOURCE -->
+    <footer class="data-source">
+      <strong>Sumber Data:</strong>
+      Frankfurter API —
+      <a href="https://www.frankfurter.app" target="_blank" rel="noopener">frankfurter.app</a>
+      · Data kurs harian resmi dari European Central Bank (ECB).
+      Dashboard ini dibuat untuk Proyek Akhir CAK4XBB3 Visualisasi Data, Fakultas Informatika, Telkom University.
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
